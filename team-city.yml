@@ -1,0 +1,18 @@
+teamcity-agent:
+  environment:
+    - AGENT_NAME=RasputinsDeathFactory
+    - 'SERVER_URL=teamcity.rasputinlabs.com:8111'
+  image: 'jetbrains/teamcity-agent:latest'
+  links:
+    - teamcity-server
+  ports:
+    - '9090:9090'
+  volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+teamcity-server:
+  image: 'jetbrains/teamcity-server:latest'
+  ports:
+    - '8111:8111'
+  volumes:
+    - '/srv/teamcity/data:/data/teamcity_server/datadir'
+    - '/srv/teamcity/logs:/opt/teamcity/logs'
