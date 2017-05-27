@@ -1,14 +1,14 @@
-teamcity-agent:
+teamcity-agent: # docker-in-docker config
   environment:
     - AGENT_NAME=RasputinsDeathFactory
-    - 'SERVER_URL=teamcity.rasputinlabs.com:8111'
+    - DOCKER_IN_DOCKER=start
+    - 'SERVER_URL=http://teamcity.rasputinlabs.com:8111'
   image: 'jetbrains/teamcity-agent:latest'
   links:
     - teamcity-server
   ports:
     - '9090:9090'
-  volumes:
-    - '/var/run/docker.sock:/var/run/docker.sock'
+  privileged: true
 teamcity-server:
   image: 'jetbrains/teamcity-server:latest'
   ports:
